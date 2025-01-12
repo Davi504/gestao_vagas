@@ -38,7 +38,7 @@ public class CompanyEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Length(min = 10, max = 50, message = "A senha deve conter entre 10 e 50 caracteres")
+    @Length(min = 10, max = 100, message = "A senha deve conter entre 10 e 50 caracteres")
     @NotBlank(message = "O campo senha não pode estar em branco")
     @Column(nullable = false)
     private String password;

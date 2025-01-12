@@ -1,6 +1,7 @@
 package br.com.davibelchior.gestao_vagas.modules.company.useCases;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,9 @@ public class CreateCompanyUseCase {
         this.companyRepository = companyRepository;
     }
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Transactional
     public CompanyEntity execute(CompanyEntity companyEntity) {
 
@@ -26,6 +30,9 @@ public class CreateCompanyUseCase {
                 .ifPresent(user -> {
                     throw new UserFoundException();
                 });
+
+        var password = passwordEncoder.encode(companyEntity.getPassword());
+        companyEntity.setPassword(password);
 
         return this.companyRepository.save(companyEntity);
     }
