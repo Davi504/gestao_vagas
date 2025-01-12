@@ -1,6 +1,7 @@
 package br.com.davibelchior.gestao_vagas.modules.company.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,11 +15,20 @@ import jakarta.validation.Valid;
 @RequestMapping("/job")
 public class JobController {
 
+    private final CreateJobUseCase createJobUseCase;
+
     @Autowired
-    private CreateJobUseCase createJobUseCase;
+    public JobController(CreateJobUseCase createJobUseCase) {
+        this.createJobUseCase = createJobUseCase;
+    }
 
     @PostMapping("/")
-    public JobEntity create(@Valid @RequestBody JobEntity jobEntity) {
-        return this.createJobUseCase.execute(jobEntity);
+    public ResponseEntity<Object> create(@Valid @RequestBody JobEntity jobEntity) {
+        try {
+            JobEntity result = createJobUseCase.execute(jobEntity);
+            return ResponseEntity.ok().body(result);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

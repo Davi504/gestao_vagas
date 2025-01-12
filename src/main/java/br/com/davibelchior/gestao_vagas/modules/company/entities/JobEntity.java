@@ -21,20 +21,21 @@ public class JobEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(updatable = false, nullable = false)
     private UUID id;
 
+    @Column
     private String description;
 
     @NotBlank(message = "Esse campo é obrigatorio")
+    @Column(nullable = false)
     private String level;
 
     @ManyToOne
-    @JoinColumn(name = "company_id", insertable = false, updatable = false)
+    @JoinColumn(name = "company_id", nullable = false)
     private CompanyEntity companyEntity;
 
-    @Column(name = "company_id")
-    private UUID companyId;
-
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 }

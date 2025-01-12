@@ -16,8 +16,8 @@ public class CustomExceptionHandler {
 
     private final MessageSource messageSource;
 
-    public CustomExceptionHandler(MessageSource message) {
-        this.messageSource = message;
+    public CustomExceptionHandler(MessageSource messageSource) {
+        this.messageSource = messageSource;
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
