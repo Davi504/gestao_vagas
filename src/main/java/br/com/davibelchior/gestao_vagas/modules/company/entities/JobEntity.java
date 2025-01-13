@@ -41,4 +41,9 @@ public class JobEntity {
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
+
+    public void setCompanyId(UUID companyId) {
+        this.companyEntity = new CompanyEntity();
+        this.companyEntity.setId(companyId);
+    }
 }
