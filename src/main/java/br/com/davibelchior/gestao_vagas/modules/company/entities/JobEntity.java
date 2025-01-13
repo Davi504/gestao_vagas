@@ -27,9 +27,12 @@ public class JobEntity {
     @Column
     private String description;
 
-    @NotBlank(message = "Esse campo é obrigatorio")
+    @NotBlank(message = "Esse campo é obrigatório")
     @Column(nullable = false)
     private String level;
+
+    @Column
+    private String benefits;
 
     @ManyToOne
     @JoinColumn(name = "company_id", nullable = false)
